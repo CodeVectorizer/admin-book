@@ -13,12 +13,12 @@ class BookController extends Controller
     {
         $books = Book::all();
 
-        return view('books.index', compact('books'));
+        return view('books.index', ['books' => $books, 'type_menu' => 'books']);
     }
 
     public function create()
     {
-        return view('books.create');
+        return view('books.create', ['type_menu' => 'books']);
     }
 
     public function store(Request $request)
@@ -29,7 +29,8 @@ class BookController extends Controller
             'publisher' => 'required|max:255',
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'isbn' => 'required|unique:books|max:255',
-            'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'file' => 'required|mimes:pdf|max:2048',
             'description' => 'required',
         ]);
 
@@ -57,7 +58,7 @@ class BookController extends Controller
 
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        return view('books.edit', ['book' => $book, 'type_menu' => 'books']);
     }
 
     public function update(Request $request, Book $book)
@@ -69,6 +70,7 @@ class BookController extends Controller
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'isbn' => 'required|unique:books,isbn,' . $book->id . '|max:255',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'file' => 'required|mimes:pdf|max:2048',
             'description' => 'required',
         ]);
 

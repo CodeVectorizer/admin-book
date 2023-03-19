@@ -16,6 +16,7 @@ class Book extends Model
         'year',
         'isbn',
         'cover',
+        'file',
         'description',
     ];
 }

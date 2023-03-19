@@ -10,12 +10,12 @@ class SummaryController extends Controller
     public function index()
     {
         $summaries = Summary::all();
-        return view('summaries.index', compact('summaries'));
+        return view('summaries.index', ['summaries' => $summaries, 'type_menu' => 'summaries']);
     }
 
     public function create()
     {
-        return view('summaries.create');
+        return view('summaries.create', ['type_menu' => 'summaries']);
     }
 
     public function store(Request $request)
@@ -35,13 +35,13 @@ class SummaryController extends Controller
     public function show($id)
     {
         $summary = Summary::findOrFail($id);
-        return view('summaries.show', compact('summary'));
+        return view('summaries.show', ['summary' => $summary, 'type_menu' => 'summaries']);
     }
 
     public function edit($id)
     {
         $summary = Summary::findOrFail($id);
-        return view('summaries.edit', compact('summary'));
+        return view('summaries.edit', ['summary' => $summary, 'type_menu' => 'summaries']);
     }
 
     public function update(Request $request, $id)

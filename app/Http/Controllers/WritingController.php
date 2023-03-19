@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Writing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,13 +12,13 @@ class WritingController extends Controller
     public function index()
     {
         $writings = Writing::all();
-        return view('writings.index', compact('writings'));
+        return view('writings.index', ['writings' => $writings, 'type_menu' => 'writings']);
     }
 
     // Show the form for creating a new resource.
     public function create()
     {
-        return view('writings.create');
+        return view('writings.create', ['type_menu' => 'writings']);
     }
 
     // Store a newly created resource in storage.
@@ -51,13 +53,13 @@ class WritingController extends Controller
     // Display the specified resource.
     public function show(Writing $writing)
     {
-        return view('writings.show', compact('writing'));
+        return view('writings.show', compact('writing'), ['type_menu' => 'writings']);
     }
 
     // Show the form for editing the specified resource.
     public function edit(Writing $writing)
     {
-        return view('writings.edit', compact('writing'));
+        return view('writings.edit', compact('writing'), ['type_menu' => 'writings']);
     }
 
     // Update the specified resource in storage.
