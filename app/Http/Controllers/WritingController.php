@@ -29,7 +29,6 @@ class WritingController extends Controller
             'content' => 'required',
             'cover' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|max:255',
-            'status' => 'required',
         ]);
 
         $writing = new Writing();
@@ -37,14 +36,14 @@ class WritingController extends Controller
         $writing->title = $validatedData['title'];
         $writing->content = $validatedData['content'];
         $writing->description = $validatedData['description'];
-        $writing->status = $validatedData['status'];
+        $writing->status = 'need_review';
+        $writing->student_id = 1;
 
         $cover = $request->file('cover');
         $fileName = time() . '_' . $cover->getClientOriginalName();
-        $filePath = 'public/' . $fileName;
-        Storage::putFileAs('public', $cover, $fileName);
+        Storage::putFileAs('public/writings/covers', $cover, $fileName);
 
-        $writing->cover = $filePath;
+        $writing->cover = 'covers/' . $fileName;
         $writing->save();
 
         return redirect()->route('writings.index')->with('success', 'Writing created successfully.');
@@ -70,7 +69,6 @@ class WritingController extends Controller
             'content' => 'required',
             'cover' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|max:255',
-            'status' => 'required',
         ]);
 
         $writing->title = $validatedData['title'];
@@ -81,9 +79,8 @@ class WritingController extends Controller
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $fileName = time() . '_' . $cover->getClientOriginalName();
-            $filePath = 'public/' . $fileName;
-            Storage::putFileAs('public', $cover, $fileName);
-            $writing->cover = $filePath;
+            Storage::putFileAs('public/writings/covers', $cover, $fileName);
+            $writing->cover = 'covers/' . $fileName;
         }
 
         $writing->save();

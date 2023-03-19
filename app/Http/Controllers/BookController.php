@@ -29,8 +29,8 @@ class BookController extends Controller
             'publisher' => 'required|max:255',
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'isbn' => 'required|unique:books|max:255',
-            // 'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'file' => 'required|mimes:pdf|max:2048',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'file' => 'mimes:pdf|max:2048',
             'description' => 'required',
         ]);
 
@@ -46,9 +46,15 @@ class BookController extends Controller
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
-            $path = public_path('covers/' . $filename);
-            Storage::putFileAs('public', $cover, $filename);
+            Storage::putFileAs('public/books/covers', $cover, $filename);
             $book->cover = 'covers/' . $filename;
+        }
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            Storage::putFileAs('public/books/files', $file, $filename);
+            $book->file = 'files/' . $filename;
         }
 
         $book->save();
@@ -84,9 +90,15 @@ class BookController extends Controller
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
-            $path = public_path('covers/' . $filename);
-            Storage::putFileAs('public', $cover, $filename);
+            Storage::putFileAs('covers', $cover, $filename);
             $book->cover = 'covers/' . $filename;
+        }
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            Storage::putFileAs('public/books/files', $file, $filename);
+            $book->file = 'files/' . $filename;
         }
 
         $book->save();

@@ -43,7 +43,7 @@
                                         @foreach ($summaries as $summary)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $summary->student->name }}</td>
+                                                <td>{{ $summary->student->user->name }}</td>
                                                 <td>{{ $summary->content }}</td>
                                                 <td>{{ $summary->status }}</td>
                                                 <td>

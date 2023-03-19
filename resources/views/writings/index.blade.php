@@ -29,6 +29,9 @@
                                     <table class="table-bordered table-md table">
                                         <tr>
                                             <th>#</th>
+                                            <th>Student Name</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
                                             <th>Cover</th>
                                             <th>Content</th>
                                             <th class="text-center">Action</th>
@@ -42,9 +45,13 @@
                                         @foreach ($writings as $writing)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $writing->student->user->name }}</td>
                                                 <td>{{ $writing->title }}</td>
                                                 <td>{{ $writing->description }}</td>
-                                                <td>{{ $writing->cover }}</td>
+
+                                                <td><img width="100" height="100"
+                                                        src="{{ asset("storage/writings/$writing->cover") }}"
+                                                        alt="">
                                                 <td>{{ $writing->content }}</td>
                                                 <td>
                                                     <a href="{{ route('writings.edit', $writing->id) }}"

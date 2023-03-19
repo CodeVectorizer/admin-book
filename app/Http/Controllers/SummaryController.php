@@ -21,13 +21,16 @@ class SummaryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'student_id' => 'required|integer',
-            'book_id' => 'required|integer',
             'content' => 'required|string',
-            'status' => 'required|in:draft,published',
         ]);
 
-        Summary::create($validatedData);
+        $summary = new Summary();
+        $summary->student_id = 1;
+        $summary->book_id = 1;
+        $summary->content = $validatedData['content'];
+        $summary->status = 'need_review';
+
+        $summary->save();
 
         return redirect()->route('summaries.index')->with('success', 'Summary created successfully');
     }
@@ -52,10 +55,15 @@ class SummaryController extends Controller
             'student_id' => 'required|integer',
             'book_id' => 'required|integer',
             'content' => 'required|string',
-            'status' => 'required|in:draft,published',
+            'status' => 'required|in:draft,need_review,published',
         ]);
 
-        $summary->update($validatedData);
+        $summary->student_id = $validatedData['student_id'];
+        $summary->book_id = $validatedData['book_id'];
+        $summary->content = $validatedData['content'];
+
+        $summary->save();
+
 
         return redirect()->route('summaries.index')->with('success', 'Summary updated successfully');
     }

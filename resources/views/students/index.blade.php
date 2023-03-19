@@ -46,8 +46,8 @@
                                         @foreach ($students as $student)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $student->name }}</td>
-                                                <td>{{ $student->email }}</td>
+                                                <td>{{ $student->user->name }}</td>
+                                                <td>{{ $student->user->email }}</td>
                                                 <td>{{ $student->nik }}</td>
                                                 <td>{{ $student->class }}</td>
                                                 <td>{{ $student->major }}</td>

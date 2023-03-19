@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
-                            <form action="{{ route('books.store') }}" method="POST">
+                            <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-header">
                                     <h4>Create Book</h4>

@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
-                            <form action="{{ route('writings.store') }}" method="POST">
+                            <form action="{{ route('writings.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-header">
                                     <h4>Create Writing</h4>
@@ -39,39 +39,57 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
-                                            {{-- form cover file --}}
-                                            <div class="form-group">
-                                                <label>Cover</label>
-                                                <input type="file"
-                                                    class="form-control @error('cover') is-invalid @enderror "
-                                                    name="cover" value="@old('cover'))" required="">
-                                                @error('cover')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-
-                                            {{-- form content --}}
-                                            <div class="form-group">
-                                                <label>Content</label>
-                                                <textarea class="form-control @error('content') is-invalid @enderror " name="content" value="@old('content'))"
-                                                    required="" style="height: 100px;">
-                                        {{ old('content') }}
-                                        </textarea>
-                                                @error('content')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Cover</label>
+                                            <input type="file" class="form-control @error('cover') is-invalid @enderror "
+                                                name="cover" value="@old('cover'))" required="">
+                                            @error('cover')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <div class="card-footer text-right">
-                                        <button class="btn btn-primary">Submit</button>
+                                    <div class="col-md-12 col-lg-12">
+                                        {{-- form title --}}
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input type="text"
+                                                class="form-control @error('description') is-invalid @enderror "
+                                                name="description" value="{{ old('description') }}" required="">
+                                            @error('description')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        {{-- form cover file --}}
+
+                                        {{-- form content --}}
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            <textarea class="form-control @error('content') is-invalid @enderror " name="content" required=""
+                                                style="width: 100%">
+                                        {{ old('content') }}
+                                        </textarea>
+                                            @error('content')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card-footer text-left">
+                                            <button class="btn btn-primary">Submit</button>
+                                        </div>
                                     </div>
                             </form>
+
                         </div>
                     </div>
 

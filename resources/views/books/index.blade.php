@@ -53,11 +53,14 @@
                                                 <td>{{ $book->publisher }}</td>
                                                 <td>{{ $book->year }}</td>
                                                 <td>{{ $book->isbn }}</td>
-                                                <td>{{ $book->cover }}</td>
-                                                <td><a href="#" class="text-primary">Download</a></td>
+                                                <td><img width="100" height="100"
+                                                        src="{{ asset("storage/books/$book->cover") }}" alt="">
+                                                </td>
+                                                <td><a href="{{ asset("storage/books/$book->file") }}" class="text-primary"
+                                                        target="_blank">Download</a></td>
                                                 <td>{{ $book->description }}</td>
                                                 <td>
-                                                    <a href="{{ route('books.edit', $book->id) }}"
+                                                    <a href="{{ route('books.edit', $book) }}"
                                                         class="btn btn-warning btn-sm">Edit</a>
                                                     <form action="{{ route('books.destroy', $book->id) }}" method="POST"
                                                         class="d-inline">
