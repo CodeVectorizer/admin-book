@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use App\Models\Book;
-use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -12,13 +12,30 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-
-        return view('books.index', ['books' => $books, 'type_menu' => 'books']);
+        return response()->json([
+            'success' => true,
+            'message' => 'List Data Buku',
+            'data'    => $books
+        ], 200);
     }
 
-    public function create()
+    public function show($id)
     {
-        return view('books.create', ['type_menu' => 'books']);
+        $book = Book::find($id);
+
+        if (!$book) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Buku tidak ditemukan',
+                'data'    => null
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Buku',
+            'data'    => $book
+        ], 200);
     }
 
     public function store(Request $request)
@@ -36,12 +53,7 @@ class BookController extends Controller
 
         $book = new Book();
 
-        $book->title = $validatedData['title'];
-        $book->author = $validatedData['author'];
-        $book->publisher = $validatedData['publisher'];
-        $book->year = $validatedData['year'];
-        $book->isbn = $validatedData['isbn'];
-        $book->description = $validatedData['description'];
+        $book->fill($validatedData);
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
@@ -59,46 +71,46 @@ class BookController extends Controller
 
         $book->save();
 
-        return redirect()->route('books.index')->with('success', 'Book created successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Buku berhasil ditambahkan',
+            'data'    => $book
+        ], 200);
     }
 
-    public function edit(Book $book)
+    public function update(Request $request, $id)
     {
-        return view('books.edit', ['book' => $book, 'type_menu' => 'books']);
-    }
+        $book = Book::find($id);
 
-    public function update(Request $request, Book $book)
-    {
+        if (!$book) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Buku tidak ditemukan',
+                'data'    => null
+            ], 404);
+        }
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
             'publisher' => 'required|max:255',
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
-            'isbn' => 'required|unique:books,isbn,' . $book->id . '|max:255',
+            'isbn' => 'required|unique:books|max:255',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'file' => 'mimes:pdf|max:2048',
             'description' => 'required',
         ]);
 
-        $book->title = $validatedData['title'];
-        $book->author = $validatedData['author'];
-        $book->publisher = $validatedData['publisher'];
-        $book->year = $validatedData['year'];
-        $book->isbn = $validatedData['isbn'];
-        $book->description = $validatedData['description'];
+        $book->fill($validatedData);
 
         if ($request->hasFile('cover')) {
-            $request->validate([
-                'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
-            Storage::putFileAs('covers', $cover, $filename);
+            Storage::putFileAs('public/books/covers', $cover, $filename);
             $book->cover = 'covers/' . $filename;
         }
 
         if ($request->hasFile('file')) {
-            $request->validate([
-                'file' => 'mimes:pdf|max:2048',
-            ]);
             $file = $request->file('file');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             Storage::putFileAs('public/books/files', $file, $filename);
@@ -107,13 +119,31 @@ class BookController extends Controller
 
         $book->save();
 
-        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Buku berhasil diupdate',
+            'data'    => $book
+        ], 200);
     }
 
-    public function destroy(Book $book)
+    public function destroy($id)
     {
+        $book = Book::find($id);
+
+        if (!$book) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Buku tidak ditemukan',
+                'data'    => null
+            ], 404);
+        }
+
         $book->delete();
 
-        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Buku berhasil dihapus',
+            'data'    => $book
+        ], 200);
     }
 }

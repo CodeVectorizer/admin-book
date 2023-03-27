@@ -60,7 +60,7 @@
                                                         target="_blank">Download</a></td>
                                                 <td>{{ $book->description }}</td>
                                                 <td>
-                                                    <a href="{{ route('books.edit', $book) }}"
+                                                    <a href="{{ route('books.edit', ['book' => $book]) }}"
                                                         class="btn btn-warning btn-sm">Edit</a>
                                                     <form action="{{ route('books.destroy', $book->id) }}" method="POST"
                                                         class="d-inline">

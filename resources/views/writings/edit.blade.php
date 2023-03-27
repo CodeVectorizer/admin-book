@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
-                            <form action="{{ route('books.edit', ['id' => $book->id]) }}">
+                            <form action="{{ route('writings.edit', ['writings' => $writing]) }}">
                                 <div class="card-header">
                                     <h4>Edit Book</h4>
                                 </div>
@@ -31,7 +31,7 @@
                                         <div class="form-group">
                                             <label>Title</label>
                                             <input type="text" class="form-control @error('title') is-invalid @enderror "
-                                                name="title" value="{{ book->title }}" required="">
+                                                name="title" value="{{ $writing->title }}" required="">
                                             @error('title')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -44,7 +44,7 @@
                                             <label>Publisher</label>
                                             <input type="text"
                                                 class="form-control @error('publisher') is-invalid @enderror "
-                                                name="publisher" value="{{ book->publisher }}" required="">
+                                                name="publisher" value="{{ $writing->publisher }}" required="">
                                             @error('publisher')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -57,7 +57,7 @@
                                             <label>Author</label>
                                             <input type="text"
                                                 class="form-control @error('author') is-invalid @enderror " name="author"
-                                                value="{{ book->author }}" required="">
+                                                value="{{ $writing->author }}" required="">
                                             @error('author')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -69,7 +69,7 @@
                                         <div class="form-group">
                                             <label>Year</label>
                                             <input type="text" class="form-control @error('year') is-invalid @enderror "
-                                                name="year" value="{{ book->year }}" required="">
+                                                name="year" value="{{ $writing->year }}" required="">
                                             @error('year')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -83,7 +83,7 @@
                                         <div class="form-group">
                                             <label>ISBN</label>
                                             <input type="text" class="form-control @error('isbn') is-invalid @enderror "
-                                                name="isbn" value="{{ book->isbn }}" required="">
+                                                name="isbn" value="{{ $writing->isbn }}" required="">
                                             @error('isbn')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -118,9 +118,10 @@
                                         {{-- form description --}}
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea class="form-control @error('description') is-invalid @enderror " name="description" "
-                                                                                            required="" style="height: 100px;">
-                                        {{ book->description }}
+                                            <textarea class="form-control @error('description') is-invalid @enderror "
+                                                name="description" "
+                                                                                                                                        required="" style="height: 100px;">
+                                        {{ $writing->description }}
                                         </textarea>
                                             @error('description')
                                                 <div class="invalid-feedback">

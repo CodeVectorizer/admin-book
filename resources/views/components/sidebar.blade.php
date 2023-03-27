@@ -48,10 +48,10 @@
                 <a class="nav-link" href="{{ url('summaries') }}"><i class="far fa-square"></i>
                     <span>Summaries</span></a>
             </li>
-            <li class="{{ Request::is('summaries/create') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('summaries/create') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('summaries/create') }}"><i class="fa fa-plus"></i> <span>Create
                         Summaries</span></a>
-            </li>
+            </li> --}}
 
             {{-- Summary --}}
             <li class="menu-header">Student</li>
@@ -70,10 +70,10 @@
                 <a class="nav-link" href="{{ url('teachers') }}"><i class="far fa-user"></i>
                     <span>Teachers</span></a>
             </li>
-            <li class="{{ Request::is('teachers/create') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('teachers/create') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('teachers/create') }}"><i class="fa fa-plus"></i> <span>Create
                         Teachers</span></a>
-            </li>
+            </li> --}}
 
 
 
