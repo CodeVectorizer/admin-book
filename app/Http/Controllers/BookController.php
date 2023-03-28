@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
+
 {
     public function index()
     {
