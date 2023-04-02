@@ -12,7 +12,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = Student::all();
+        $students = Student::with('user')->get();
         return view('students.index', ['students' => $students, 'type_menu' => 'students']);
     }
 
@@ -55,7 +55,8 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        return view('students.show', ['student' => $student, 'type_menu' => 'students']);
+        return;
+        // return view('students.show', ['student' => $student, 'type_menu' => 'students']);
     }
 
     public function edit(Student $student)

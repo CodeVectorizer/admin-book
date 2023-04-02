@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lihat Summary')
+@section('title', 'Lihat Teacher')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -10,9 +10,9 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Summary</h1>
+                <h1>Teacher</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Summary</a></div>
+                    <div class="breadcrumb-item active"><a href="#">Teacher</a></div>
                     <div class="breadcrumb-item"><a href="#">Create</a></div>
                 </div>
             </div>
@@ -22,46 +22,41 @@
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Tabel Summary</h4>
+                                <h4>Tabel Teacher</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-bordered table-md table">
                                         <tr>
                                             <th>#</th>
-                                            <th>Student Name</th>
-                                            <th>Content</th>
-                                            <th>Status</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>NIP</th>
+                                            <th>Address</th>
                                             <th class="text-center">Action</th>
                                         </tr>
 
-                                        @if ($summaries->isEmpty())
+                                        @if ($teachers->isEmpty())
                                             <tr>
                                                 <td colspan="8" class="text-center">No data available</td>
                                             </tr>
                                         @endif
-                                        @foreach ($summaries as $summary)
+                                        @foreach ($teachers as $teacher)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $summary->student->user->name }}</td>
-                                                <td>{{ $summary->content }}</td>
-                                                <td>{{ $summary->status }}</td>
+                                                <td>{{ $teacher->user?->name }}</td>
+                                                <td>{{ $teacher->user?->email }}</td>
+                                                <td>{{ $teacher->nip }}</td>
+                                                <td>{{ $teacher->address }}</td>
                                                 <td>
-
-                                                    {{-- <a href="{{ route('summaries.edit', $summary->id) }}"
-                                                        class="btn btn-warning btn-sm">Edit</a> --}}
-                                                    {{-- publish --}}
-                                                    <a href="{{ route('summaries.publish', $summary->id) }}"
-                                                        class="btn btn-success btn-sm">Publish</a>
-                                                    {{-- unpublish --}}
-                                                    <a href="{{ route('summaries.unpublish', $summary->id) }}"
-                                                        class="btn btn-danger btn-sm">Unpublish</a>
-                                                    {{-- <form action="{{ route('summaries.destroy', $summary->id) }}"
+                                                    <a href="{{ route('teachers.edit', $teacher->id) }}"
+                                                        class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('teachers.destroy', $teacher->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                    </form> --}}
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

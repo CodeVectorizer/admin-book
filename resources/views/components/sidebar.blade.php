@@ -37,10 +37,10 @@
                 <a class="nav-link" href="{{ url('writings') }}"><i class="far fa-square"></i>
                     <span>Writings</span></a>
             </li>
-            <li class="{{ Request::is('writings/create') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('writings/create') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('writings/create') }}"><i class="fa fa-plus"></i> <span>Create
                         Writings</span></a>
-            </li>
+            </li> --}}
 
             {{-- Summary --}}
             <li class="menu-header">Summary</li>

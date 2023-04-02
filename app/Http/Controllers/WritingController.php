@@ -88,11 +88,24 @@ class WritingController extends Controller
         return redirect()->route('writings.index')->with('success', 'Writing updated successfully.');
     }
 
-    // Remove the specified resource from storage.
     public function destroy(Writing $writing)
     {
         Storage::delete($writing->cover);
         $writing->delete();
         return redirect()->route('writings.index')->with('success', 'Writing deleted successfully.');
+    }
+
+    public function publish(Writing $writing)
+    {
+        $writing->status = 'published';
+        $writing->save();
+        return redirect()->route('writings.index')->with('success', 'Writing published successfully.');
+    }
+
+    public function unpublish(Writing $writing)
+    {
+        $writing->status = 'need_review';
+        $writing->save();
+        return redirect()->route('writings.index')->with('success', 'Writing unpublished successfully.');
     }
 }

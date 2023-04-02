@@ -35,22 +35,18 @@ class SummaryController extends Controller
         return redirect()->route('summaries.index')->with('success', 'Summary created successfully');
     }
 
-    public function show($id)
+    public function show(Summary $summary)
     {
-        $summary = Summary::findOrFail($id);
         return view('summaries.show', ['summary' => $summary, 'type_menu' => 'summaries']);
     }
 
-    public function edit($id)
+    public function edit(Summary $summary)
     {
-        $summary = Summary::findOrFail($id);
         return view('summaries.edit', ['summary' => $summary, 'type_menu' => 'summaries']);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request,  Summary $summary)
     {
-        $summary = Summary::findOrFail($id);
-
         $validatedData = $request->validate([
             'student_id' => 'required|integer',
             'book_id' => 'required|integer',
@@ -66,5 +62,20 @@ class SummaryController extends Controller
 
 
         return redirect()->route('summaries.index')->with('success', 'Summary updated successfully');
+    }
+
+    public function destroy(Summary $summary)
+    {
+        $summary->delete();
+
+        return redirect()->route('summaries.index')->with('success', 'Summary deleted successfully');
+    }
+
+    public function publish(Summary $summary)
+    {
+        $summary->status = 'published';
+        $summary->save();
+
+        return redirect()->route('summaries.index')->with('success', 'Summary published successfully');
     }
 }

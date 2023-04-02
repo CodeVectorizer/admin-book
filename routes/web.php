@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SummaryController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\WritingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +27,17 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('books', BookController::class);
     Route::resource('summaries', SummaryController::class);
+    // summary publish and unpublish
+    Route::get('summaries/publish/{id}', [SummaryController::class, 'publish'])->name('summaries.publish');
+    Route::get('summaries/unpublish/{id}', [SummaryController::class, 'unpublish'])->name('summaries.unpublish');
+
     Route::resource('writings', WritingController::class);
+    // writings publish and unpublish
+    Route::get('writings/publish/{id}', [WritingController::class, 'publish'])->name('writings.publish');
+    Route::get('writings/unpublish/{id}', [WritingController::class, 'unpublish'])->name('writings.unpublish');
+
     Route::resource('students', StudentController::class);
+    Route::resource('teachers', TeacherController::class);
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');

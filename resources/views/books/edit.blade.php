@@ -21,7 +21,8 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
-                            <form method="POST" action="{{ route('books.update', ['book' => $book]) }}">
+                            <form method="POST" action="{{ route('books.update', ['book' => $book]) }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="card-header">
@@ -129,7 +130,7 @@
                                             <label>Description</label>
                                             <textarea class="form-control @error('description') is-invalid @enderror "
                                                 name="description" "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            required="" style="height: 100px;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        required="" style="height: 100px;">
                                         {{ $book->description }}
                                         </textarea>
                                             @error('description')

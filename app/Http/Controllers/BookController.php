@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -92,7 +92,7 @@ class BookController extends Controller
             ]);
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
-            Storage::putFileAs('covers', $cover, $filename);
+            Storage::putFileAs('public/books/covers', $cover, $filename);
             $book->cover = 'covers/' . $filename;
         }
 

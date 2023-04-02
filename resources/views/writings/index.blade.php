@@ -34,6 +34,7 @@
                                             <th>Description</th>
                                             <th>Cover</th>
                                             <th>Content</th>
+                                            <th>Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
 
@@ -53,15 +54,23 @@
                                                         src="{{ asset("storage/writings/$writing->cover") }}"
                                                         alt="">
                                                 <td>{{ $writing->content }}</td>
+                                                <td>{{ $writing->status }}</td>
                                                 <td>
-                                                    <a href="{{ route('writings.edit', $writing->id) }}"
-                                                        class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('writings.destroy', $writing->id) }}"
+                                                    {{-- <a href="{{ route('writings.edit', $writing->id) }}"
+                                                        class="btn btn-warning btn-sm">Edit</a> --}}
+                                                    {{-- publish --}}
+                                                    <a href="{{ route('writings.publish', $writing->id) }}"
+                                                        class="btn btn-success btn-sm">Publish</a>
+                                                    {{-- unpublish --}}
+                                                    <a href="{{ route('writings.unpublish', $writing->id) }}"
+                                                        class="btn btn-danger btn-sm">Unpublish</a>
+
+                                                    {{-- <form action="{{ route('writings.destroy', $writing->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                    </form>
+                                                    </form> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
