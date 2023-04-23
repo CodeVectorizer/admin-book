@@ -12,6 +12,7 @@ class WritingController extends Controller
     public function index()
     {
         $writings = Writing::all();
+
         return view('writings.index', ['writings' => $writings, 'type_menu' => 'writings']);
     }
 
@@ -33,17 +34,18 @@ class WritingController extends Controller
 
         $writing = new Writing();
 
-        $writing->title = $validatedData['title'];
-        $writing->content = $validatedData['content'];
-        $writing->description = $validatedData['description'];
+        $writing->fill($validatedData);
         $writing->status = 'need_review';
         $writing->student_id = 1;
 
-        $cover = $request->file('cover');
-        $fileName = time() . '_' . $cover->getClientOriginalName();
-        Storage::putFileAs('public/writings/covers', $cover, $fileName);
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $fileName = time() . '_' . $cover->getClientOriginalName();
+            Storage::putFileAs('public/writings/covers', $cover, $fileName);
 
-        $writing->cover = 'covers/' . $fileName;
+            $writing->cover = 'covers/' . $fileName;
+        }
+
         $writing->save();
 
         return redirect()->route('writings.index')->with('success', 'Writing created successfully.');

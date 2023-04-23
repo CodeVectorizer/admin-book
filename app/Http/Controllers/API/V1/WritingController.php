@@ -12,6 +12,10 @@ class WritingController extends Controller
     public function index()
     {
         $writings = Writing::all();
+        $writings->map(function ($writing) {
+            $writing->cover = env('APP_URL') . Storage::url('writings/' . $writing->cover);
+            return $writing;
+        });
         return response()->json([
             'success' => true,
             'message' => 'List Data Writing',
@@ -22,6 +26,8 @@ class WritingController extends Controller
     public function show($id)
     {
         $writing = Writing::find($id);
+
+        $writing->cover = env('APP_URL') . Storage::url('writings/' . $writing->cover);
 
         if (!$writing) {
             return response()->json([
@@ -41,17 +47,18 @@ class WritingController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'student_id' => 'required',
             'title' => 'required|max:255',
             'content' => 'required',
-            'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'required',
-            'status' => 'required',
+            'cover' => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|max:255',
         ]);
+
 
         $writing = new Writing();
 
         $writing->fill($validatedData);
+        $writing->status = 'need_review';
+        $writing->student_id = 1;
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
@@ -125,6 +132,18 @@ class WritingController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Writing berhasil dihapus',
+            'data'    => $writing
+        ], 200);
+    }
+
+    public function review($id)
+    {
+        $writing = Writing::find($id);
+        $writing->status = 'reviewed';
+        $writing->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Writing berhasil diupdate',
             'data'    => $writing
         ], 200);
     }

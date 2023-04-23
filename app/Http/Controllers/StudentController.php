@@ -56,7 +56,7 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         return;
-        // return view('students.show', ['student' => $student, 'type_menu' => 'students']);
+        return view('students.show', ['student' => $student, 'type_menu' => 'students']);
     }
 
     public function edit(Student $student)

@@ -12,6 +12,13 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
+        // mapping book->covers  to link storage
+        $books->map(function ($book) {
+            $book->cover = env('APP_URL') . Storage::url('books/' . $book->cover);
+            $book->file = env('APP_URL') . Storage::url('books/' . $book->file);
+            return $book;
+        });
+
         return response()->json([
             'success' => true,
             'message' => 'List Data Buku',
@@ -22,6 +29,8 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::find($id);
+        $book->cover = env('APP_URL') . Storage::url('books/' . $book->cover);
+        $book->file = env('APP_URL') . Storage::url('books/' . $book->file);
 
         if (!$book) {
             return response()->json([

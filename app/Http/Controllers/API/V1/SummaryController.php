@@ -5,12 +5,20 @@ namespace App\Http\Controllers\API\V1;
 use App\Models\Summary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class SummaryController extends Controller
 {
     public function index()
     {
         $summaries = Summary::all();
+        $summaries->map(
+            function ($summary) {
+                $summary->book = $summary->book;
+                $summary->book->cover = env('APP_URL') . Storage::url('books/' . $summary->book->cover);
+                return $summary;
+            }
+        );
         return response()->json([
             'success' => true,
             'message' => 'List data Summary',
@@ -21,6 +29,8 @@ class SummaryController extends Controller
     public function show($id)
     {
         $summary = Summary::find($id);
+        $summary->book = $summary->book;
+        $summary->book->cover = env('APP_URL') . Storage::url('books/' . $summary->book->cover);
 
         if (!$summary) {
             return response()->json([
@@ -44,12 +54,12 @@ class SummaryController extends Controller
             'student_id' => 'required|exists:students,id',
             'book_id' => 'required|exists:books,id',
             'content' => 'required|max:255',
-            'status' => 'required|max:255',
         ]);
 
         $summary = new Summary();
 
         $summary->fill($validateData);
+        $summary->status = 'Need Review';
 
         $summary->save();
 
