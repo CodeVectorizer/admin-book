@@ -11,7 +11,7 @@ class SummaryController extends Controller
 {
     public function index()
     {
-        $summaries = Summary::all();
+        $summaries = Summary::latest()->get();
         $summaries->map(
             function ($summary) {
                 $summary->book = $summary->book;

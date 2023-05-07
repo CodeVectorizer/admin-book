@@ -9,13 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index($student_id = null)
     {
-        $books = Book::all();
+        $books = Book::latest()->get();
         // mapping book->covers  to link storage
-        $books->map(function ($book) {
+        $books->map(function ($book) use ($student_id) {
             $book->cover = env('APP_URL') . Storage::url('books/' . $book->cover);
             $book->file = env('APP_URL') . Storage::url('books/' . $book->file);
+            $book->is_read = $book->summaries()->where('student_id', $student_id)->exists();
             return $book;
         });
 

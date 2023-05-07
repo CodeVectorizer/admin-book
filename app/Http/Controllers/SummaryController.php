@@ -22,11 +22,12 @@ class SummaryController extends Controller
     {
         $validatedData = $request->validate([
             'content' => 'required|string',
+            'book_id' => 'required|integer',
         ]);
 
         $summary = new Summary();
         $summary->student_id = 1;
-        $summary->book_id = 1;
+        $summary->book_id = $validatedData['book_id'];
         $summary->content = $validatedData['content'];
         $summary->status = 'need_review';
 
@@ -73,9 +74,22 @@ class SummaryController extends Controller
 
     public function publish(Summary $summary)
     {
+        $summary->student->point += 10;
+        $summary->student->save();
+
         $summary->status = 'published';
         $summary->save();
 
+
         return redirect()->route('summaries.index')->with('success', 'Summary published successfully');
+    }
+
+    public function unpublish(Summary $summary)
+    {
+        $summary->student->point -= 10;
+        $summary->status = 'need_review';
+        $summary->save();
+
+        return redirect()->route('summaries.index')->with('success', 'Summary unpublished successfully');
     }
 }

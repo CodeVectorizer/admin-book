@@ -29,8 +29,9 @@
                                     <table class="table-bordered table-md table">
                                         <tr>
                                             <th>#</th>
-                                            <th>Student Name</th>
+                                            <th>TItle</th>
                                             <th>Content</th>
+                                            <th>Student Name</th>
                                             <th>Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
@@ -43,8 +44,9 @@
                                         @foreach ($summaries as $summary)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $summary->student->user->name }}</td>
+                                                <td>{{ $summary->book->title }}</td>
                                                 <td>{{ $summary->content }}</td>
+                                                <td>{{ $summary->student->user->name }}</td>
                                                 <td>{{ $summary->status }}</td>
                                                 <td>
 
@@ -52,10 +54,10 @@
                                                         class="btn btn-warning btn-sm">Edit</a> --}}
                                                     {{-- publish --}}
                                                     <a href="{{ route('summaries.publish', $summary->id) }}"
-                                                        class="btn btn-success btn-sm">Publish</a>
+                                                        class="btn btn-primary btn-sm">Approve</a>
                                                     {{-- unpublish --}}
                                                     <a href="{{ route('summaries.unpublish', $summary->id) }}"
-                                                        class="btn btn-danger btn-sm">Unpublish</a>
+                                                        class="btn btn-danger btn-sm">Reject</a>
                                                     {{-- <form action="{{ route('summaries.destroy', $summary->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf

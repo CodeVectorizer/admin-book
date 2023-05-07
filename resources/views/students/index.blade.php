@@ -23,6 +23,10 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Tabel Student</h4>
+                                <div class="card-header-action">
+                                    <a href="{{ route('reset.point') }}"><button class="btn btn-primary">Reset
+                                            Point</button></a>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -35,6 +39,7 @@
                                             <th>Class</th>
                                             <th>Major</th>
                                             <th>Address</th>
+                                            <th>Point</th>
                                             <th class="text-center">Action</th>
                                         </tr>
 
@@ -47,11 +52,12 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $student->user?->name }}</td>
-                                                <td>{{ $student->user?->email   }}</td>
+                                                <td>{{ $student->user?->email }}</td>
                                                 <td>{{ $student->nik }}</td>
                                                 <td>{{ $student->class }}</td>
                                                 <td>{{ $student->major }}</td>
                                                 <td>{{ $student->address }}</td>
+                                                <td>{{ $student->point }}</td>
                                                 <td>
                                                     <a href="{{ route('students.edit', $student->id) }}"
                                                         class="btn btn-warning btn-sm">Edit</a>

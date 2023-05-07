@@ -19,4 +19,9 @@ class Book extends Model
         'file',
         'description',
     ];
+
+    public function summaries()
+    {
+        return $this->hasMany(Summary::class);
+    }
 }

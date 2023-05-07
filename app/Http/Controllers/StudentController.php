@@ -47,6 +47,7 @@ class StudentController extends Controller
             'class' => $request->input('class'),
             'major' => $request->input('major'),
             'address' => $request->input('address'),
+            'point' => 0,
         ]);
         $student->save();
 
@@ -98,5 +99,12 @@ class StudentController extends Controller
         $user->delete();
 
         return redirect()->route('students.index')->with('success', 'Student deleted successfully');
+    }
+
+    public function resetPoint()
+    {
+        Student::query()->update(['point' => 0]);
+
+        return redirect()->route('students.index')->with('success', 'Point reset successfully');
     }
 }

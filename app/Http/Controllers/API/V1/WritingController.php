@@ -11,7 +11,7 @@ class WritingController extends Controller
 {
     public function index()
     {
-        $writings = Writing::all();
+        $writings = Writing::latest()->get();
         $writings->map(function ($writing) {
             $writing->cover = env('APP_URL') . Storage::url('writings/' . $writing->cover);
             return $writing;

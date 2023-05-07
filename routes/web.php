@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\TeacherController;
@@ -24,33 +25,34 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Auth::routes();
-Route::group(['middleware' => 'auth'], function () {
+Route::group([], function () {
     Route::resource('books', BookController::class);
+    Route::get('student/reset-point', [StudentController::class, 'resetPoint'])->name('reset.point');
     Route::resource('summaries', SummaryController::class);
     // summary publish and unpublish
-    Route::get('summaries/publish/{id}', [SummaryController::class, 'publish'])->name('summaries.publish');
-    Route::get('summaries/unpublish/{id}', [SummaryController::class, 'unpublish'])->name('summaries.unpublish');
+    Route::get('summaries/publish/{summary}', [SummaryController::class, 'publish'])->name('summaries.publish');
+    Route::get('summaries/unpublish/{summary}', [SummaryController::class, 'unpublish'])->name('summaries.unpublish');
 
     Route::resource('writings', WritingController::class);
     // writings publish and unpublish
-    Route::get('writings/publish/{id}', [WritingController::class, 'publish'])->name('writings.publish');
-    Route::get('writings/unpublish/{id}', [WritingController::class, 'unpublish'])->name('writings.unpublish');
+    Route::get('writings/publish/{writing}', [WritingController::class, 'publish'])->name('writings.publish');
+    Route::get('writings/unpublish/{writing}', [WritingController::class, 'unpublish'])->name('writings.unpublish');
 
     Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-    Route::redirect('/', '/dashboard-general-dashboard');
+    // Route::redirect('/', '/dashboard-general-dashboard');
+
 
     // Dashboard
-    Route::get('/dashboard-general-dashboard', function () {
-        return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
-    });
-    Route::get('/dashboard-ecommerce-dashboard', function () {
-        return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
-    });
+
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard-ecommerce-dashboard', function () {
+    //     return view('pages.dashboard-ecommerce-dashboard', ['type_menu' => 'dashboard']);
+    // });
 
 
     // Layout
@@ -185,7 +187,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/modules-calendar', function () {
         return view('pages.modules-calendar', ['type_menu' => 'modules']);
     });
-    Route::get('/modules-chartjs', function () {
+    Route::get('/moduladmines-chartjs', function () {
         return view('pages.modules-chartjs', ['type_menu' => 'modules']);
     });
     Route::get('/modules-datatables', function () {

@@ -15,6 +15,7 @@ class Student extends Model
         'class',
         'major',
         'address',
+        'point',
     ];
 
     public function user()

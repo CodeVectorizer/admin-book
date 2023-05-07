@@ -31,8 +31,8 @@
                                             <th>#</th>
                                             <th>Student Name</th>
                                             <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Cover</th>
+                                            {{-- <th>Description</th> --}}
+                                            {{-- <th>Cover</th> --}}
                                             <th>Content</th>
                                             <th>Status</th>
                                             <th class="text-center">Action</th>
@@ -48,11 +48,11 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $writing->student->user->name }}</td>
                                                 <td>{{ $writing->title }}</td>
-                                                <td>{{ $writing->description }}</td>
+                                                {{-- <td>{{ $writing->description }}</td> --}}
 
-                                                <td><img width="100" height="100"
+                                                {{-- <td><img width="100" height="100"
                                                         src="{{ asset("storage/writings/$writing->cover") }}"
-                                                        alt="">
+                                                        alt=""> --}}
                                                 <td>{{ $writing->content }}</td>
                                                 <td>{{ $writing->status }}</td>
                                                 <td>

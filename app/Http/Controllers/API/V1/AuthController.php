@@ -18,11 +18,18 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
+        $user->student_id = $user->student?->id;
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return \response()->json([
                 'success' => false,
                 'message' => 'The provided credentials are incorrect.',
+                'data' => null
+            ], 401);
+        } else if ($user->role == 'teacher') {
+            return \response()->json([
+                'success' => false,
+                'message' => 'You are not allowed to login here',
                 'data' => null
             ], 401);
         }
