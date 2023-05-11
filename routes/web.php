@@ -25,10 +25,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Auth::routes();
+
 Route::group([], function () {
-    Route::resource('books', BookController::class);
     Route::get('student/reset-point', [StudentController::class, 'resetPoint'])->name('reset.point');
     Route::resource('summaries', SummaryController::class);
+    Route::resource('books', BookController::class);
     // summary publish and unpublish
     Route::get('summaries/publish/{summary}', [SummaryController::class, 'publish'])->name('summaries.publish');
     Route::get('summaries/unpublish/{summary}', [SummaryController::class, 'unpublish'])->name('summaries.unpublish');

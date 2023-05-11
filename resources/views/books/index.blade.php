@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Book')
+@section('title', 'Lihat Book')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -54,9 +54,9 @@
                                                 <td>{{ $book->year }}</td>
                                                 <td>{{ $book->isbn }}</td>
                                                 <td><img width="100" height="100"
-                                                        src="{{ asset("storage/books/$book->cover") }}" alt="">
+                                                        src="{{ asset("app/books/$book->cover") }}" alt="">
                                                 </td>
-                                                <td><a href="{{ asset("storage/books/$book->file") }}" class="text-primary"
+                                                <td><a href="{{ asset("app/books/$book->file") }}" class="text-primary"
                                                         target="_blank">Download</a></td>
                                                 <td>{{ $book->description }}</td>
                                                 <td>

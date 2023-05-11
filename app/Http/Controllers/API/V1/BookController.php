@@ -14,8 +14,8 @@ class BookController extends Controller
         $books = Book::latest()->get();
         // mapping book->covers  to link storage
         $books->map(function ($book) use ($student_id) {
-            $book->cover = env('APP_URL') . Storage::url('books/' . $book->cover);
-            $book->file = env('APP_URL') . Storage::url('books/' . $book->file);
+            $book->cover = env('APP_URL') . '/app/books/' . $book->cover;
+            $book->file = env('APP_URL') . '/app/books/' . $book->file;
             $book->is_read = $book->summaries()->where('student_id', $student_id)->exists();
             return $book;
         });
@@ -30,8 +30,8 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::find($id);
-        $book->cover = env('APP_URL') . Storage::url('books/' . $book->cover);
-        $book->file = env('APP_URL') . Storage::url('books/' . $book->file);
+        $book->cover = env('APP_URL') . '/app/books/' . $book->cover;
+        $book->file = env('APP_URL') . '/app/books/' . $book->file;
 
         if (!$book) {
             return response()->json([

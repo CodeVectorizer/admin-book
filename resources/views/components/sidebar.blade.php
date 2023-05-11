@@ -9,7 +9,8 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="{{ Request::is('dashboard') || Request::is('/') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('books') }}"><i class="far fa-square"></i> <span>Books</span></a>
+                <a class="nav-link" href="{{ url('dashboard') }}"><i class="far fa-square"></i>
+                    <span>Dashboard</span></a>
             </li>
 
             {{-- Books --}}

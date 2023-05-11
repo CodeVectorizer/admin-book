@@ -47,14 +47,14 @@ class BookController extends Controller
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
-            Storage::putFileAs('public/books/covers', $cover, $filename);
+            Storage::putFileAs('books/covers', $cover, $filename);
             $book->cover = 'covers/' . $filename;
         }
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            Storage::putFileAs('public/books/files', $file, $filename);
+            Storage::putFileAs('books/files', $file, $filename);
             $book->file = 'files/' . $filename;
         }
 
@@ -92,7 +92,7 @@ class BookController extends Controller
             ]);
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
-            Storage::putFileAs('public/books/covers', $cover, $filename);
+            Storage::putFileAs('books/covers', $cover, $filename);
             $book->cover = 'covers/' . $filename;
         }
 
@@ -102,7 +102,7 @@ class BookController extends Controller
             ]);
             $file = $request->file('file');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            Storage::putFileAs('public/books/files', $file, $filename);
+            Storage::putFileAs('books/files', $file, $filename);
             $book->file = 'files/' . $filename;
         }
 

@@ -15,7 +15,7 @@ class SummaryController extends Controller
         $summaries->map(
             function ($summary) {
                 $summary->book = $summary->book;
-                $summary->book->cover = env('APP_URL') . Storage::url('books/' . $summary->book->cover);
+                $summary->book->cover = env('APP_URL') . '/app/books/' . $summary->book->cover;
                 return $summary;
             }
         );
@@ -30,7 +30,7 @@ class SummaryController extends Controller
     {
         $summary = Summary::find($id);
         $summary->book = $summary->book;
-        $summary->book->cover = env('APP_URL') . Storage::url('books/' . $summary->book->cover);
+        $summary->book->cover = env('APP_URL') . '/app/books/' . $summary->book->cover;
 
         if (!$summary) {
             return response()->json([
