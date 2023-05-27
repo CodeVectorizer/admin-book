@@ -9,14 +9,14 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="{{ Request::is('dashboard') || Request::is('/') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('dashboard') }}"><i class="far fa-square"></i>
+                <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-table-columns"></i>
                     <span>Dashboard</span></a>
             </li>
 
             {{-- Books --}}
             <li class="menu-header">Book</li>
             <li class="{{ Request::is('books') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('books') }}"><i class="far fa-square"></i> <span>Books</span></a>
+                <a class="nav-link" href="{{ url('books') }}"><i class="fa fa-book"></i> <span>Books</span></a>
             </li>
             <li class="{{ Request::is('books/create') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('books/create') }}"><i class="fa fa-plus"></i> <span>Create
@@ -27,7 +27,7 @@
             {{-- Writing --}}
             <li class="menu-header">Writing</li>
             <li class="{{ Request::is('writings') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('writings') }}"><i class="far fa-square"></i>
+                <a class="nav-link" href="{{ url('writings') }}"><i class="fa fa-pencil"></i>
                     <span>Writings</span></a>
             </li>
             {{-- <li class="{{ Request::is('writings/create') ? 'active' : '' }}">
@@ -38,7 +38,7 @@
             {{-- Summary --}}
             <li class="menu-header">Summary</li>
             <li class="{{ Request::is('summaries') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('summaries') }}"><i class="far fa-square"></i>
+                <a class="nav-link" href="{{ url('summaries') }}"><i class="fa fa-bookmark"></i>
                     <span>Summaries</span></a>
             </li>
             {{-- <li class="{{ Request::is('summaries/create') ? 'active' : '' }}">
@@ -277,10 +277,10 @@
             </li> --}}
         </ul>
 
-        <div class="hide-sidebar-mini mt-4 mb-4 p-3">
+        {{-- <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
                 <i class="fas fa-rocket"></i> Documentation
             </a>
-        </div>
+        </div> --}}
     </aside>
 </div>

@@ -22,4 +22,9 @@ class Writing extends Model
     {
         return $this->belongsTo(Student::class);
     }
+
+    public function user()
+    {
+        return $this->hasOneThrough(User::class, Student::class, 'id', 'id', 'student_id', 'user_id');
+    }
 }

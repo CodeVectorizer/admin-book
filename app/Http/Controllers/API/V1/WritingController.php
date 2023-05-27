@@ -11,9 +11,10 @@ class WritingController extends Controller
 {
     public function index()
     {
-        $writings = Writing::latest()->get();
+        $writings = Writing::with('student')->where('status', 'published')->latest()->get();
         $writings->map(function ($writing) {
-            $writing->cover = env('APP_URL') . Storage::url('writings/' . $writing->cover);
+            $writing->cover = env('APP_URL') . Storage::url('/app/writings/' . $writing->cover);
+            $writing->student->user = $writing->student->user;
             return $writing;
         });
         return response()->json([
@@ -27,7 +28,8 @@ class WritingController extends Controller
     {
         $writing = Writing::find($id);
 
-        $writing->cover = env('APP_URL') . Storage::url('writings/' . $writing->cover);
+        $writing->cover = env('APP_URL') . Storage::url('/app/writings/' . $writing->cover);
+        $writing->student->user = $writing->student->user;
 
         if (!$writing) {
             return response()->json([
@@ -58,7 +60,7 @@ class WritingController extends Controller
 
         $writing->fill($validatedData);
         $writing->status = 'need_review';
-        $writing->student_id = 1;
+        $writing->student_id = $request->student_id ?? 1;
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');

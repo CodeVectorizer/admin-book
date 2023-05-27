@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $students = Student::with('user')->latest()->get();
 
@@ -21,7 +21,9 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        $student = Student::find($id)->with('user')->first();
+        $student = Student::where('id', $id)->with('user')->first();
+        // $student = Student::find($id)->with('user')->first();
+        // dd($student);
 
         return response()->json([
             'success' => true,

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lihat Student')
+@section('title', 'List Student')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -13,7 +13,7 @@
                 <h1>Student</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Student</a></div>
-                    <div class="breadcrumb-item"><a href="#">Create</a></div>
+                    <div class="breadcrumb-item"><a href="#">List</a></div>
                 </div>
             </div>
 
@@ -23,7 +23,16 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Tabel Student</h4>
-                                <div class="card-header-action">
+                                <div class="card-header-action d-flex">
+                                    <form action="{{ route('students.index') }}" method="GET">
+                                        <div class="input-group pr-2">
+                                            <input type="text" class="form-control" name="search" placeholder="Search"
+                                                value="{{ request()->query('search') }}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <a href="{{ route('reset.point') }}"><button class="btn btn-primary">Reset
                                             Point</button></a>
                                 </div>
@@ -35,9 +44,8 @@
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>NIK</th>
+                                            <th>NISN</th>
                                             <th>Class</th>
-                                            <th>Major</th>
                                             <th>Address</th>
                                             <th>Point</th>
                                             <th class="text-center">Action</th>
@@ -55,7 +63,6 @@
                                                 <td>{{ $student->user?->email }}</td>
                                                 <td>{{ $student->nik }}</td>
                                                 <td>{{ $student->class }}</td>
-                                                <td>{{ $student->major }}</td>
                                                 <td>{{ $student->address }}</td>
                                                 <td>{{ $student->point }}</td>
                                                 <td>
@@ -75,21 +82,8 @@
                             </div>
                             <div class="card-footer text-right">
                                 <nav class="d-inline-block">
-                                    <ul class="pagination mb-0">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1"><i
-                                                    class="fas fa-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1 <span
-                                                    class="sr-only">(current)</span></a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
+                                    {{ $students->links() }}
+
                                 </nav>
                             </div>
                         </div>

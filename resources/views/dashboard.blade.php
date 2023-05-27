@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'General Dashboard')
+@section('title', 'Dashboard ')
 
 @push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('library/jqvmap/dist/jqvmap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.min.css') }}">
 @endpush
 
 @section('main')
@@ -89,8 +86,11 @@
                                         <img class="rounded-circle mr-3" width="50"
                                             src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar">
                                         <div class="media-body">
-                                            <div class="text-primary float-right">
-                                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</div>
+                                            <div class="text-primary float-right text-right">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                <div>{{ \Carbon\Carbon::parse($item->created_at)->format('D-m-Y | H:i') }}
+                                                </div>
+                                            </div>
                                             <div class="media-title">{{ $item->student->user->name }}</div>
                                             <span class="text-small text-muted">{{ $item->book->title }}</span>
                                         </div>
@@ -121,6 +121,7 @@
                                             <th>Title</th>
                                             <th>Author</th>
                                             <th>Status</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,6 +136,11 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('writings.index') }}">{{ $item->status }}</a>
+                                                </td>
+                                                <td>
+
+                                                    <a href="{{ route('writings.index') }}">{{ \Carbon\Carbon::parse($item->created_at)->format('D-m-Y | H:i') }}
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -158,8 +164,12 @@
                                         <img class="rounded-circle mr-3" width="50"
                                             src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar">
                                         <div class="media-body">
-                                            <div class="text-primary float-right">
-                                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</div>
+                                            <div class="text-primary float-right text-right">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                <div>
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->format('D-m-Y | H:i') }}
+                                                </div>
+                                            </div>
                                             <div class="media-title">{{ $item->user->name }}</div>
                                             <span class="text-small text-muted">{{ $item->point }}</span>
                                         </div>

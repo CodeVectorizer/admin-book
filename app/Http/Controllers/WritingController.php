@@ -8,10 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class WritingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $writings = Writing::all();
-
+        $writings = Writing::latest();
+        if ($request->has('search') && $request->search != null) {
+            $writings = $writings->whereHas(
+                'user',
+                function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('title', 'like', '%' . request()->search . '%')
+                        ->orWhere('content', 'like', '%' . request()->search . '%')
+                        ->orWhere('status', 'like', '%' . request()->search . '%');
+                }
+            );
+        }
+        $writings =     $writings->paginate(10);
         return view('writings.index', ['writings' => $writings, 'type_menu' => 'writings']);
     }
 

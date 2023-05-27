@@ -27,11 +27,13 @@ class BookController extends Controller
         ], 200);
     }
 
-    public function show($id)
+    public function show($id, $student_id = null)
     {
         $book = Book::find($id);
+        // dd($book, $book->summaries);
         $book->cover = env('APP_URL') . '/app/books/' . $book->cover;
         $book->file = env('APP_URL') . '/app/books/' . $book->file;
+        $book->is_read = $book->summaries()->where('student_id', $student_id)->where('status', 'published')->exists();
 
         if (!$book) {
             return response()->json([
@@ -61,8 +63,8 @@ class BookController extends Controller
             'description' => 'required',
         ]);
 
+        // dd($validatedData);
         $book = new Book();
-
         $book->fill($validatedData);
 
         if ($request->hasFile('cover')) {

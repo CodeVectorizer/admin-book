@@ -67,7 +67,7 @@
 
                                         {{-- form nik --}}
                                         <div class="form-group">
-                                            <label>NIK</label>
+                                            <label>NISN</label>
                                             <input type="text" class="form-control @error('nik') is-invalid @enderror "
                                                 name="nik" value="{{ old('nik') }}" required="">
                                             @error('nik')

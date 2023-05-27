@@ -31,9 +31,7 @@
                                         <div class="form-group">
                                             <label>Content</label>
                                             <textarea class="form-control @error('content') is-invalid @enderror " name="description" required=""
-                                                style="height: 100px;">
-                                        {{ summary->content }}
-                                        </textarea>
+                                                style="height: 100px;">{{ summary->content }}</textarea>
                                             @error('content')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

@@ -12,8 +12,17 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
+        $books = Book::latest();
 
+        if (request()->has('search') && request()->search != null) {
+            $books = $books->where('title', 'like', '%' . request()->search . '%')
+                ->orWhere('author', 'like', '%' . request()->search . '%')
+                ->orWhere('publisher', 'like', '%' . request()->search . '%')
+                ->orWhere('year', 'like', '%' . request()->search . '%')
+                ->orWhere('isbn', 'like', '%' . request()->search . '%');
+        }
+
+        $books = $books->paginate(10);
         return view('books.index', ['books' => $books, 'type_menu' => 'books']);
     }
 
@@ -30,10 +39,11 @@ class BookController extends Controller
             'publisher' => 'required|max:255',
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
             'isbn' => 'required|unique:books|max:255',
-            'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'file' => 'mimes:pdf|max:2048',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif',
+            'file' => 'mimes:pdf',
             'description' => 'required',
         ]);
+
 
         $book = new Book();
 
@@ -88,7 +98,7 @@ class BookController extends Controller
 
         if ($request->hasFile('cover')) {
             $request->validate([
-                'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'cover' => 'image|mimes:jpeg,png,jpg,gif|max:5048',
             ]);
             $cover = $request->file('cover');
             $filename = time() . '.' . $cover->getClientOriginalExtension();
@@ -98,7 +108,7 @@ class BookController extends Controller
 
         if ($request->hasFile('file')) {
             $request->validate([
-                'file' => 'mimes:pdf|max:2048',
+                'file' => 'mimes:pdf|max:5048',
             ]);
             $file = $request->file('file');
             $filename = time() . '.' . $file->getClientOriginalExtension();

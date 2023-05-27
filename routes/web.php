@@ -26,7 +26,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group([], function () {
+
+Route::group(['middleware' => 'auth'], function () {
     Route::get('student/reset-point', [StudentController::class, 'resetPoint'])->name('reset.point');
     Route::resource('summaries', SummaryController::class);
     Route::resource('books', BookController::class);

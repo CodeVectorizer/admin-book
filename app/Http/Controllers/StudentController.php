@@ -10,9 +10,25 @@ use App\Models\Student;
 class StudentController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::with('user')->get();
+        $students = Student::with('user')->latest();
+
+        if ($request->has('search') && $request->search != null) {
+            $students = $students->whereHas(
+                'user',
+                function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('email', 'like', '%' . $request->search . '%')
+                        ->orWhere('nik', 'like', '%' . $request->search . '%')
+                        ->orWhere('point', 'like', '%' . $request->search . '%')
+                        ->orWhere('class', 'like', '%' . $request->search . '%')
+                        ->orWhere('address', 'like', '%' . $request->search . '%');
+                }
+            );
+        }
+
+        $students = $students->paginate(10);
         return view('students.index', ['students' => $students, 'type_menu' => 'students']);
     }
 
@@ -29,7 +45,6 @@ class StudentController extends Controller
             'password' => 'required|min:6',
             'nik' => 'required|unique:students,nik',
             'class' => 'required|string',
-            'major' => 'required|string',
             'address' => 'required|string',
         ]);
 
@@ -72,7 +87,6 @@ class StudentController extends Controller
             'email' => 'required|email|unique:users,email,' . $student->user_id,
             'nik' => 'required|unique:students,nik,' . $student->id,
             'class' => 'required|string',
-            'major' => 'required|string',
             'address' => 'required|string',
         ]);
 

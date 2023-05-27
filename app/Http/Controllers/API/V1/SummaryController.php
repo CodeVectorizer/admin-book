@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class SummaryController extends Controller
 {
-    public function index()
+    public function index($student_id = null)
     {
-        $summaries = Summary::latest()->get();
+        $summaries = Summary::latest()->where('student_id', $student_id)->get();
         $summaries->map(
             function ($summary) {
                 $summary->book = $summary->book;
@@ -59,7 +59,7 @@ class SummaryController extends Controller
         $summary = new Summary();
 
         $summary->fill($validateData);
-        $summary->status = 'Need Review';
+        $summary->status = 'need_review';
 
         $summary->save();
 

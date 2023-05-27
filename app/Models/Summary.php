@@ -25,4 +25,9 @@ class Summary extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function user()
+    {
+        return $this->hasOneThrough(User::class, Student::class, 'id', 'id', 'student_id', 'user_id');
+    }
 }

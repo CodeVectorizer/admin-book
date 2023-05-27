@@ -7,9 +7,21 @@ use Illuminate\Http\Request;
 
 class SummaryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $summaries = Summary::all();
+        $summaries = Summary::latest();
+        if ($request->has('search') && $request->search != null) {
+            $summaries = $summaries->whereHas(
+                'user',
+                function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('title', 'like', '%' . request()->search . '%')
+                        ->orWhere('content', 'like', '%' . request()->search . '%')
+                        ->orWhere('status', 'like', '%' . request()->search . '%');
+                }
+            );
+        }
+        $summaries = $summaries->paginate(10);
         return view('summaries.index', ['summaries' => $summaries, 'type_menu' => 'summaries']);
     }
 
@@ -80,13 +92,14 @@ class SummaryController extends Controller
         $summary->status = 'published';
         $summary->save();
 
-
         return redirect()->route('summaries.index')->with('success', 'Summary published successfully');
     }
 
     public function unpublish(Summary $summary)
     {
         $summary->student->point -= 10;
+        $summary->student->save();
+
         $summary->status = 'need_review';
         $summary->save();
 

@@ -128,11 +128,8 @@
                                         {{-- form description --}}
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea class="form-control @error('description') is-invalid @enderror "
-                                                name="description" "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        required="" style="height: 100px;">
-                                        {{ $book->description }}
-                                        </textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror " name="description" required=""
+                                                style="height: 100px;">{{ $book->description }}</textarea>
                                             @error('description')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -141,7 +138,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer text-right">
+                                <div class="text-right card-footer">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
                             </form>

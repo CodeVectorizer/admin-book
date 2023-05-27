@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lihat Teacher')
+@section('title', 'List Teacher')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -13,7 +13,7 @@
                 <h1>Teacher</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Teacher</a></div>
-                    <div class="breadcrumb-item"><a href="#">Create</a></div>
+                    <div class="breadcrumb-item"><a href="#">List</a></div>
                 </div>
             </div>
 
@@ -23,6 +23,17 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Tabel Teacher</h4>
+                                <div class="card-header-action">
+                                    <form action="{{ route('teachers.index') }}" method="GET">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search" name="search"
+                                                value="{{ request()->query('search') }}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -65,21 +76,7 @@
                             </div>
                             <div class="card-footer text-right">
                                 <nav class="d-inline-block">
-                                    <ul class="pagination mb-0">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1"><i
-                                                    class="fas fa-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1 <span
-                                                    class="sr-only">(current)</span></a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
+                                    {{ $teachers->links() }}
                                 </nav>
                             </div>
                         </div>

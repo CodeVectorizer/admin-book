@@ -118,11 +118,8 @@
                                         {{-- form description --}}
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea class="form-control @error('description') is-invalid @enderror "
-                                                name="description" "
-                                                                                                                                        required="" style="height: 100px;">
-                                        {{ $writing->description }}
-                                        </textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror " name="description" required=""
+                                                style="height: 100px;">{{ $writing->description }}</textarea>
                                             @error('description')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

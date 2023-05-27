@@ -8,9 +8,20 @@ use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $teachers = Teacher::with('user')->get();
+        $teachers = Teacher::with('user')->latest();
+        if ($request->has('search') && $request->search != '') {
+            $teachers = $teachers->where('nip', 'like', '%' . $request->search . '%')
+                ->orWhereHas('user', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('email', 'like', '%' . $request->search . '%')
+                        ->orWhere('nip', 'like', '%' . $request->search . '%')
+                        ->orWhere('address', 'like', '%' . $request->search . '%');
+                });
+        }
+
+        $teachers = $teachers->paginate(10);
         return view('teachers.index', ['teachers' => $teachers, 'type_menu' => 'teachers']);
     }
 
