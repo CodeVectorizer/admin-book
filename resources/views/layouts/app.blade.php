@@ -36,6 +36,15 @@
 
 <body>
     <div id="app">
+        @if (session('success'))
+            <div id="flash-message" class="alert alert-primary alert-has-icon">
+                <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">Success</div>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
         <div class="main-wrapper">
             <!-- Header -->
             @include('components.header')

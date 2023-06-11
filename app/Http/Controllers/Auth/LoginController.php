@@ -37,4 +37,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    // check if user is admin or not, if not admin return message and redirect to login page
+    protected function redirectTo()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return '/admin';
+        } else {
+            return '/home';
+        }
+    }
 }

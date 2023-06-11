@@ -53,7 +53,7 @@ class SummaryController extends Controller
         $validateData = $request->validate([
             'student_id' => 'required|exists:students,id',
             'book_id' => 'required|exists:books,id',
-            'content' => 'required|max:255',
+            'content' => 'required|min:6|max:1000',
         ]);
 
         $summary = new Summary();
@@ -85,7 +85,7 @@ class SummaryController extends Controller
         $validateData = $request->validate([
             'student_id' => 'required|exists:students,id',
             'book_id' => 'required|exists:books,id',
-            'content' => 'required|max:255',
+            'content' => 'required|min:6|max:1000',
             'status' => 'required|max:255',
         ]);
 

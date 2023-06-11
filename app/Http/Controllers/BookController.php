@@ -44,7 +44,6 @@ class BookController extends Controller
             'description' => 'required',
         ]);
 
-
         $book = new Book();
 
         $book->title = $validatedData['title'];
@@ -53,6 +52,7 @@ class BookController extends Controller
         $book->year = $validatedData['year'];
         $book->isbn = $validatedData['isbn'];
         $book->description = $validatedData['description'];
+
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
