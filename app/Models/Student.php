@@ -13,7 +13,6 @@ class Student extends Model
         'user_id',
         'nik',
         'class',
-        'major',
         'address',
         'point',
     ];

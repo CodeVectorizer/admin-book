@@ -90,18 +90,6 @@
                                             @enderror
                                         </div>
 
-                                        {{-- form major --}}
-                                        <div class="form-group">
-                                            <label>Major</label>
-                                            <input type="text" class="form-control @error('major') is-invalid @enderror "
-                                                name="major" value="{{ $student->major }}" required="">
-                                            @error('major')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-
                                         {{-- form address --}}
                                         <div class="form-group">
                                             <label>Address</label>
